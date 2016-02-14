@@ -1,0 +1,72 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/modal.css" />
+
+<div id="modal" class="modal hide fade">
+	<!-- 编辑框 -->
+	<div class="modal-header">
+		<h4><if condition="$item">修改<else />新建</if>项目</h4>
+	</div>
+	<div class="modal-content">
+		<form class="form-horizontal" method="post">
+		<input type="hidden" id="item_id" name="item_id" value="{$item.item_id}">
+		<div class="control-group">
+			<label class="control-label" for="username">项目名</label>
+			<div class="controls">
+				<input type="text" name="item_name" placeholder="项目名" value="{$item.item_name}" required />
+			</div>
+		</div>
+		<if condition="$login_user['groupid'] eq 1">
+		<div class="control-group">
+			<label class="control-label" for="username">项目类型</label>
+			<div class="controls">
+				<select name="item_type">
+					<option value="0" <if condition="$item['item_type'] eq 0">selected="selected"</if>>公开项目</option>
+					<option value="1" <if condition="$item['item_type'] eq 1">selected="selected"</if>>私人项目</option>
+				</select>
+			</div>
+		</div>
+		<else />
+		<input type="hidden" name="item_type" placeholder="项目类型" value="{$item.item_type}" required />
+		</if>
+		<div class="control-group">
+			<label class="control-label" for="password">项目描述</label>
+			<div class="controls">
+				<textarea name="item_description" placeholder="项目描述">{$item.item_description}</textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="confirm_password">访问密码</label>
+			<div class="controls">
+				<input type="password" name="password" placeholder="可选，私密项目请设置密码" value="{$item.password}">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-primary" type="submit">保存</button>
+				<a href="javascript:history.go(-1)" class="btn btn-link">返回</a>
+			</div>
+		</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn exist-modal">关闭</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	
+	$('#modal').modal({
+		"backdrop":'static'
+	});
+	
+	//返回
+	$(".exist-modal").click(function(){
+		window.location.href="../index.php?m=Home&c=Item&a=show&item_id={$item.item_id}";
+		return false;
+	});
+	
+});
+</script>
+
+<include file="Common/footer_base" />

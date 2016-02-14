@@ -1,0 +1,139 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/page/show.css" />
+<script src="__PUBLIC__/js/common.js"></script> 
+<link href="__PUBLIC__/highlight/default.min.css" rel="stylesheet"> 
+<script src="__PUBLIC__/highlight/highlight.min.js"></script> 
+
+<div class="doc-head row" >
+	<div class="left ">
+		<h2>{$item.item_name}</h2>
+	</div>
+	<div class="right">
+		<div class="inline pull-right">
+			<if condition="$ItemPermn">
+			<div class="btn-group pull-right">
+				<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+					项目设置
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#" id="share">分享</a></li>
+					<li><a href="{:U('Home/Item/word', array('item_id' => $item[item_id]))}">导出word</a></li>
+					<if condition="$ItemCreator">
+					<li><a href="{:U('Home/Item/edit', array('item_id' => $item[item_id]))}">修改信息</a></li>
+					<li><a href="{:U('Home/Member/edit', array('item_id' => $item[item_id]))}">成员管理</a></li>
+					<li><a href="{:U('Home/Attorn/index', array('item_id' => $item[item_id]))}">转让</a></li>
+					<li><a href="{:U('Home/Item/delete', array('item_id' => $item[item_id]))}">删除</a></li>
+					</if>
+					<if condition="$login_user">
+					<li><a href="#">--------</a></li>
+					<li><a href="{:U('Home/User/logout')}">退出登录</a></li>
+					<li><a href="{:U('Home/Item/index')}">我的项目</a></li>
+					</if>
+				</ul>
+			</div>
+			</if>
+			
+		</div>
+	</div>	
+</div>
+
+<div class="doc-body row">
+	<!-- 左侧栏菜单 -->
+	<div class="doc-left span3 bs-docs-sidebar pull-left">
+		<form class="form-search text-center" action="" method="get" target="_blank">
+		<div class="input-append search-input-append">
+			<i class="icon-blank"></i>
+			<input type="hidden" name="m" value="Home" />
+			<input type="hidden" name="c" value="Item" />
+			<input type="hidden" name="a" value="search" />
+			<input type="text" name="keyword" class="search-query search-query-input" value="{$keyword}" />
+			<input type="hidden" name="item_id" value="{$item.item_id}" />
+			<button type="submit" class="btn"><i class="icon-search"></i></button>
+		</div>
+		</form>
+		<ul class="nav nav-list bs-docs-sidenav">
+			<foreach name="pages" item="page">
+			<li ><a href="{:U('Home/Page/show', array('page_id' => $page[page_id]))}" data-page_id="{$page.page_id}" ><i class="icon-blank"></i>{$page.page_title}</a></li>
+			</foreach>
+
+			<foreach name="catalogs" item="catalog">
+			<li><a href="javascript:;" data-catalog_id="{$catalog.cat_id}"><i class="icon-chevron-right"></i>{$catalog.cat_name}</a>
+				<ul class="child-ul nav-list hide">
+					<foreach name="catalog.pages" item="catalog_page">
+					<li><a href="{:U('Home/Page/show', array('page_id' => $catalog_page['page_id']))}" data-page_id="{$catalog_page.page_id}" >{$catalog_page.page_title}</a></li>
+					</foreach>
+				</ul>
+			</li>
+			</foreach>
+		</ul>
+		<!-- 新建栏 -->
+		<div class="doc-left-newbar">
+			<if condition="$ItemPermn">
+			<div><a href="{:U('Home/Page/edit', array('item_id' => $item[item_id]))}"><i class="icon-plus"></i>&nbsp;新建页面</a></div>
+			<div><a href="{:U('Home/Catalog/edit', array('item_id' => $item[item_id]))}" ><i class="icon-folder-open"></i>&nbsp;新建目录</a></div>
+			</if>
+		</div>
+		<input type="hidden" id="item_id" value="{$item.item_id}">
+		<input type="hidden" id="page_id" value="{$page_id}">
+		<input type="hidden" id="base_url" value="__APP__">
+	</div>
+	<div class="doc-right span12 ">
+		<!-- 编辑栏 -->
+		<div class='page_tools page-edit-link pull-right'>
+			<ul class="inline">
+				<if condition="$ItemPermn">
+				<li><a href="{:U('Home/Page/edit', array('page_id' => $singlepage[page_id]))}" id="edit-link"><i class="icon-edit"></i>&nbsp;编辑</a></li>
+				<li><a href="#" id="delete-link"><i class="icon-remove"></i>&nbsp;删除</a></li>
+				</if>
+			</ul>
+		</div>
+		<!-- 页面标题 -->
+		<div class="page_title">
+			<h4>{$singlepage.page_title}</h4>
+		</div>
+		<!-- 页面内容 -->
+		<div class='page_content'>
+			{$singlepage.page_content}
+		</div>
+	</div>
+</div>
+
+<!-- 分享框 -->
+<div class="modal hide fade" id="share-modal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>分享</h3>
+	</div>
+	<div class="modal-body">
+		<p>项目地址：</p>
+		<p><code>{$share_url}</code></p>
+		<p>你可以复制项目地址给你的好友</p>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	//
+	hljs.initHighlightingOnLoad();
+	//为所有table标签添加bootstap支持的表格类
+	$("table").addClass("table table-bordered table-hover");
+	//超链接都在新窗口打开
+	$('a[href^="http"]').each(function() {
+		$(this).attr('target', '_blank');
+	});
+	
+	//删除事件
+	$("#delete-link").click(function(){
+		if(confirm('该操作不可恢复，确认删除吗？')){
+			$("#delete-link").attr("href", "{:U('Home/Page/delete', array('page_id' => $singlepage[page_id]))}");
+			return true;
+		}
+		return false;
+	});
+})
+</script>
+
+<script src="__PUBLIC__/js/page/show.js"></script>
+
+<include file="Common/footer" />

@@ -1,0 +1,72 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/item/search.css" />
+<script src="__PUBLIC__/js/common.js"></script> 
+
+<div class="doc-head row" >
+	<div class="left ">
+		<h3>在 <span class="color-red">{$item.item_name}</span> 搜索 <span class="color-red">{$keyword}</span> 的结果：</h3>
+	</div>
+	<div class="right">
+		<div class="inline pull-right">
+			<if condition="$ItemPermn">
+				<ul class="nav nav-pills pull-right">
+				</ul>
+			</if>
+		</div>
+	</div>	
+</div>
+
+<div class="doc-body row">
+	<!-- 左侧栏菜单 -->
+	<div class="doc-left span3 bs-docs-sidebar pull-left">
+		<form class="form-search text-center" action="" method="get">
+		<div class="input-append search-input-append">
+			<i class="icon-blank"></i>
+			<input type="hidden" name="m" value="Home" />
+			<input type="hidden" name="c" value="Item" />
+			<input type="hidden" name="a" value="search" />
+			<input type="text" name="keyword" class="search-query search-query-input" value="{$keyword}" />
+			<input type="hidden" name="item_id" value="{$item.item_id}" />
+			<button type="submit" class="btn"><i class="icon-search"></i></button>
+		</div>
+		</form>
+		<ul class="nav nav-list bs-docs-sidenav">
+			<foreach name="pages" item="page">
+			<li ><a href="{:U('Home/Page/show', array('page_id' => $page[page_id], 'in_search' => 1))}" data-page_id="{$page.page_id}" ><i class="icon-blank"></i>{$page.page_title}</a></li>
+			</foreach>
+			<foreach name="searched_catalogs" item="catalog">
+				<li><a href="javascript:;"><i class="icon-chevron-right"></i>{$catalog.cat_name}</a>
+					<ul class="child-ul nav-list hide">
+						<foreach name="catalog.pages" item="catalog_page">
+						<li><a href="{:U('Home/Page/show', array('page_id' => $catalog_page[page_id], 'in_search' => 1))}" data-page_id="{$catalog_page.page_id}" >{$catalog_page.page_title}</a></li>
+						</foreach>
+					</ul>
+				</li>
+			</foreach>
+		</ul>
+		<!-- 新建栏 -->
+		<div class="doc-left-newbar">
+			<div><a href="{:U('Home/Item/show', array('item_id' => $item[item_id]))}" ><i class="icon-repeat"></i>&nbsp;返回项目</a></div>
+		</div>
+		<input type="hidden" id="item_id" value="{$item.item_id}">
+		<input type="hidden" id="page_id" value="{$page_id}">
+		<input type="hidden" id="base_url" value="__APP__">
+	</div>
+	<div class="doc-right span12 ">
+		<!-- 编辑栏 -->
+		<div class='page-edit-link pull-right hide'>
+			<ul class="inline">
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<!-- 页面内容 -->
+		<div class='iframe_content'>
+			<iframe id="page_content" width="100%" scrolling="yes" height="100%" frameborder="0" style=" overflow:visible; height:100%;" name="main" seamless ="seamless" src=""></iframe>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/item/search.js"></script>
+
+<include file="Common/footer" />

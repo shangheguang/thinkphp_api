@@ -1,0 +1,32 @@
+<include file="Common/header" />
+<link rel="stylesheet" href="__PUBLIC__/css/login.css" />
+
+<div class="container">
+<form class="form-signin" method="post">
+	<h3 class="form-signin-heading">注册新用户</h3>
+	<input type="text" class="input-block-level" name="username" placeholder="用户名（可填英文昵称或邮箱）" required />
+	<input type="password" class="input-block-level" name="password"  placeholder="密码" required />
+	<input type="password" class="input-block-level" name="confirm_password"  placeholder="再次输入密码" required />
+	<input type="password" class="input-block-level" name="v_code"  placeholder="验证码" required />
+	<div class="control-group">
+		<div class="controls">
+			<img class="v_code_img" src="{:U('Home/User/verifycode')}" id="v_code_img">
+		</div>
+	</div>
+	<button class="btn btn-large btn-primary" type="submit">注册</button>
+	&nbsp;&nbsp;<a href="{:U('Home/User/login')}">已有账号？登录</a>
+</form>
+</div> <!-- /container -->
+
+<script type="text/javascript">
+$(function(){
+	$("#v_code_img").click(function(){
+		var time = new Date();
+		var begin_seconds = time.getMilliseconds();
+		$("#v_code_img").attr('src', "{:U('Home/User/verifycode')}&"+(Date.parse(time)+begin_seconds) );
+	});
+});
+</script>
+
+<include file="Common/footer" />
+

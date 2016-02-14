@@ -1,0 +1,66 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/page/edit.css" />
+
+<div id="layout">
+	<!-- 顶部条 --> 
+	<header class="row" id="head-bar">
+		<div class="head-left  pull-left">
+			<ul class="inline">
+				<li>
+					<strong>页面名称：</strong><input type="text" name ="page_title" id="page_title" placeholder="请输入页面标题" value="{$page.page_title}">
+				</li>
+				<li>
+					<strong>上级目录：</strong><select name="cat_id" id="cat_id"></select>
+				</li>
+				<li>
+					<strong>排序：</strong><input type="text" name ="order" id="order" value="{$page.order}" placeholder="可选/数字" style="width: 100px;">
+				</li>
+				<if condition="$page">
+				<li>
+					<a href="{:U('Home/Page/history', array('page_id' => $page['page_id']))}">历史版本</a>
+				</li>
+				</if>
+			</ul>
+		</div>
+		
+		<div class="head-right pull-right">
+			<a href="#" class="btn btn-primary " id="save">保存</a>
+			<a href="#" class="btn btn-primary " id="save_back">保存并返回</a>
+			<a href="{:U('Home/Item/show', array('item_id' => $item_id, 'page_id' => $page['page_id']))}" class="btn ">取消</a>
+		</div>
+	</header>
+	
+	<hr>
+	
+	<!-- 插入模板的按钮组 -->
+	<div class="btns" >
+		<button id="api-doc">插入API接口模板</button>
+		<button id="database-doc">插入数据字典模板</button>
+	</div>
+
+	<div id="page-editormd">
+		<textarea id="page_content" style="display:none;">{$page.page_content}</textarea>
+	</div>
+	<input type="hidden" id="item_id" value="{$item_id}">
+	<input type="hidden" id="page_id" value="{$page.page_id}">
+	<input type="hidden" id="default_cat_id" value="{$page.cat_id}">
+</div>
+
+<!-- 模板存放的地方 -->
+<div id="api-doc-templ" style="display:none">
+	<include file="MdTemplate/api-doc" />
+</div>
+<div id="database-doc-templ" style="display:none">
+	<include file="MdTemplate/database" />
+</div>
+
+<link href="__PUBLIC__/editor.md/css/editormd.css" rel="stylesheet" />
+<script src="__PUBLIC__/editor.md/editormd.min.js"></script>
+<script src="__PUBLIC__/js/page/edit.js"></script>
+
+<script type="text/javascript">
+$(function() {
+})
+</script>
+
+<include file="Common/footer_base" />

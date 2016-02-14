@@ -1,0 +1,54 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/modal.css" />
+
+<div id="modal" class="modal hide fade">
+	<!-- 编辑框 -->
+	<div class="modal-header">
+		<h4>删除项目</h4>
+	</div>
+	<div class="modal-content">
+		<form class="form-horizontal" method="post" onsubmit="return checkForm();">
+		<input type="hidden" name="item_id" value="{$item_id}">
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">验证你的身份</label>
+			<div class="controls">
+				<input type="password" name="password" placeholder="项目创建人登录密码" value="" required />
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">删除</button>
+				<a href="javascript:history.go(-1)" class="btn btn-link">返回</a>
+			</div>
+		</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn exist-modal">关闭</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	
+	$('#modal').modal({
+		"backdrop":'static'
+	});
+	
+	//返回
+	$(".exist-modal").click(function(){
+		window.location.href="../index.php?m=Home&c=Item&a=show&item_id={$item_id}";
+		return false;
+	});
+	
+});
+
+function checkForm(){
+	if(confirm('该操作不可恢复，确认删除吗？')){
+		return true;
+	}
+	return false;
+}
+</script>
+
+<include file="Common/footer_base" />

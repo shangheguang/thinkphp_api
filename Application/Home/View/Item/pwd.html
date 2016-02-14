@@ -1,0 +1,30 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/user/login.css" />
+
+<div class="container">
+	<form class="form-signin" method="post">
+	<h3 class="form-signin-heading">请输入访问密码</h3>
+	<input type="hidden" id="item_id" name="item_id" value="{$item_id}">
+	<input type="password" class="input-block-level" name="password" placeholder="密码" required />
+	<input type="text" class="input-block-level" name="v_code" placeholder="验证码" required style="width: 120px;" />
+	<img class="v_code_img" src="{:U('Home/User/verifycode', array('t' => time().rand(100,999)))}" id="v_code_img">
+	<div class="control-group">
+		<div class="controls">
+			
+		</div>
+	</div>
+	<button class="btn btn-large btn-primary" type="submit">提交</button>
+	</form>
+</div> <!-- /container -->
+
+<script type="text/javascript">
+$(function(){
+	$("#v_code_img").click(function(){
+		var time = new Date();
+		var begin_seconds = time.getMilliseconds();
+		$("#v_code_img").attr('src', "{:U('Home/User/verifycode')}&t="+(Date.parse(time)+begin_seconds) );
+	}); 
+});
+</script>
+
+<include file="Common/footer_base" />

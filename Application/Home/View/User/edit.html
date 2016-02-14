@@ -1,0 +1,63 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/modal.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/user/edit.css" />
+
+<div id="edit-user" class="modal hide fade">
+	<!-- 编辑框 -->
+	<div class="user-edit">
+		<div class="modal-header">
+			<h4>
+				<if condition="$User['uid']">编辑用户：{$User.username}<else />添加用户</if>
+			</h4>
+		</div>
+		<div class="modal-content">
+			<form class="form-horizontal">
+			<input type="hidden" id="user_id" value="{$User.uid}">
+			<div class="control-group">
+				<label class="control-label" for="username">用户名</label>
+				<div class="controls">
+					<input type="text" id="username" placeholder="用户名（可填英文昵称或邮箱）" value="{$User.username}" required />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password">密码</label>
+				<div class="controls">
+					<input type="password" id="password" placeholder="<if condition="$User['uid']">新密码，若不修改请留空<else />密码</if>" value="">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="confirm_password">重复密码</label>
+				<div class="controls">
+					<input type="password" id="confirm_password" placeholder="<if condition="$User['uid']">重复新密码，若不修改请留空<else />重复密码</if>" value="">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button class="btn" id="save-user">保存</button>
+					<if condition="$User['uid']">
+					<button class="btn btn-link" id="delete-user">删除此用户</button>
+					<button class="btn btn-link new-user">或，添加一个新用户？</button>
+					</if>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+	<!-- 用户列表 -->
+	<div class="user-list">
+		<div class="modal-header">
+			<h4>用户列表&nbsp;<small>（点击可编辑）</small></h4>
+		</div>
+		<div id="show-user">
+			<br>
+			<br>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn exist-user">关闭</a>
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/user/edit.js"></script>
+
+<include file="Common/footer_base" />

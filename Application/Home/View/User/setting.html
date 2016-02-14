@@ -1,0 +1,58 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/modal.css" />
+
+<div id="modal" class="modal hide fade">
+	<!-- 编辑框 -->
+	<div class="modal-header">
+		<h4>修改个人信息</h4>
+	</div>
+	<div class="modal-content">
+		<form class="form-horizontal" method="post">
+		<input type="hidden" name="user_id" value="{$login_user.uid}">
+		<div class="control-group">
+			<label class="control-label" for="username">用户名</label>
+			<div class="controls">
+				<input type="text" id="username" value="{$login_user.username}" disabled required / >
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="password">旧密码</label>
+			<div class="controls">
+				<input type="password" name="password" id="password" placeholder="原密码，若不修改密码请留空" value="">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="new_password">新密码</label>
+			<div class="controls">
+				<input type="password" name="new_password" id="new_password" placeholder="新密码，若不修改请留空" value="">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-primary" type="submit">保存</button>
+			</div>
+		</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn exist-modal">关闭</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	
+	$('#modal').modal({
+		"backdrop":'static'
+	});
+	
+	//返回
+	$(".exist-modal").click(function(){
+		window.location.href="../index.php?m=Home&c=Item&a=index";
+		return false;
+	});
+	
+});
+</script>
+
+<include file="Common/footer_base" />

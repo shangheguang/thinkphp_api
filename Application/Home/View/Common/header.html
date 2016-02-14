@@ -1,0 +1,31 @@
+<include file="Common/header_base" />
+
+<link rel="stylesheet" href="__PUBLIC__/css/header.css" />
+
+<div class="container-narrow">
+	<div class="masthead">
+		<if condition="$login_user">
+		<div class="btn-group pull-right">
+			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+				{$login_user.username}
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="{:U('Home/User/setting')}">个人设置</a></li>
+				<if condition="$login_user['groupid'] eq 1">
+				<li><a href="{:U('Home/User/edit')}">用户管理</a></li>
+				</if>
+				<li><a href="{:U('Home/User/logout')}">退出登录</a></li>
+			</ul>
+		</div>
+		<else />
+		<ul class="nav nav-pills pull-right">
+			<!-- <li ><a href="{:U('Home/User/login')}">登录/注册</a></li> -->
+		</ul>
+		</if>
+		<h1><a href="{:U('Home/Item/index')}">WMI文档管理</a></h1>
+	</div>
+	
+</div>
+
+<hr>

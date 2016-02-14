@@ -1,0 +1,55 @@
+<include file="Common/header_base" />
+<link rel="stylesheet" href="__PUBLIC__/css/modal.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/member/edit.css" />
+
+<div id="edit-cat" class="modal hide fade">
+	<!-- 编辑框 -->
+	<div class="cat-edit">
+		<div class="modal-header">
+			<h4>新增成员</h4>
+		</div>
+		<input type="hidden" id="item_id" value="{$item_id}">
+		<div class="modal-content">
+			<form class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="user_id">用户id</label>
+					<div class="controls">
+						<input type="text" id="user_id" placeholder="用户id" value="" style="width:80px;">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="username">(或)&nbsp;用户名</label>
+					<div class="controls">
+						<input type="text" id="username" placeholder="用户名" value="">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn" id="save-cat">保存</button>
+						<small style="color:grey">至少填一个，如果都填写，以用户id为准</small>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 成员列表 -->
+	<div class="cat-list">
+		<div class="modal-header">
+			<h4>
+				成员列表&nbsp;<small>（点击可删除）</small>
+			</h4>
+		</div>
+		<div id="show-cat">
+
+			<br> <br>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<a href="#" class="btn exist-cat">关闭</a>
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/member/edit.js"></script>
+
+<include file="Common/footer_base" />
